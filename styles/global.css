@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    color: #ccc;
+    background-color: #1e1e1e;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 1rem;
+}
+
+header h1 {
+    color: #fff;
+}
+
+main {
+    padding: 2rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    margin-bottom: 1rem;
+}
+
+#query, #query form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#query textarea {
+    resize: none;
+    font-family: 'Courier New', monospace;
+    background-color: #1e1e1e;
+    color: #ccc;
+    border: 1px solid #4CAF50;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+#query button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+#query button:hover {
+    background-color: #3a8e3f;
+}
+
+#result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#result code {
+    max-width: 100%;
+    color: #ccc;
+}
+
+#result pre {
+    background-color: #1e1e1e;
+    border: 1px solid #4CAF50;
+    padding: 1rem;
+    overflow-x: auto;
+    width: 100%;
+    max-width: 800px;
+}
+
+
