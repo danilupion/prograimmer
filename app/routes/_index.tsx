@@ -1,42 +1,65 @@
 import type { ActionArgs } from "@remix-run/node";
-import { createCompletion } from "../../utils/openai";
+import { createCompletion } from "~/utils/openai";
 import { Form, useActionData } from "@remix-run/react";
+import type { FormEvent } from "react";
+import { useCallback, useState } from "react";
+import hljs from "highlight.js";
 
 export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
-  const requirements = form.get("requirements") as string;
+  const requirements = form.get("input") as string;
 
   return createCompletion(requirements);
 };
 
 export default function IndexRoute() {
   const actionData = useActionData<typeof action>();
+  const [loading, setLoading] = useState(false);
+
+  const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+  }, []);
+
+  const choice = actionData && actionData.choices[0] && actionData.choices[0];
+  const usage = actionData && actionData.usage;
 
   return (
     <main>
-      <section id="query">
-        <h2>What do you need me to do?</h2>
-        <Form method="post">
-          <textarea name="requirements" rows={10} cols={60} />
-          <button type="submit">Enviar</button>
+      <section id="top">
+        <pre>
+          <code>
+            {choice && choice.message && (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: hljs.highlightAuto(choice.message.content).value,
+                }}
+              />
+            )}
+          </code>
+        </pre>
+      </section>
+      <section id="bottom">
+        <Form method="post" onSubmit={onSubmit}>
+          <div className="actions">
+            <button type="submit" disabled={loading}>
+              {loading ? "..." : "Send"}
+            </button>
+          </div>
+
+          <textarea name="input" />
+
+          <div className="status">
+            {choice && usage
+              ? [
+                  `finish reason: ${choice.finish_reason}`,
+                  `prompt tokens: ${usage.prompt_tokens}`,
+                  `completion tokens: ${usage.completion_tokens}`,
+                  `total tokens: ${usage.total_tokens}`,
+                ].join(" | ")
+              : "Ready"}
+          </div>
         </Form>
       </section>
-      {actionData && (
-        <section id="result">
-          <h2>Results</h2>
-          {actionData.choices.map((choice) => (
-            <>
-              <pre>
-                <code id="result-code" className="language-python">
-                  {choice.message?.content}
-                </code>
-              </pre>
-              <div>{choice.finish_reason}</div>
-            </>
-          ))}
-          {actionData.usage && <div>{JSON.stringify(actionData.usage)}</div>}
-        </section>
-      )}
     </main>
   );
 }

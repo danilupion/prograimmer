@@ -7,7 +7,7 @@ import {
   Meta,
 } from "@remix-run/react";
 
-import styles from "../styles/global.css";
+import styles from "~/styles/global.css";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
