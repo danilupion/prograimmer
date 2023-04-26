@@ -3,7 +3,7 @@ import { createCompletion } from "~/utils/openai";
 import { Form, useActionData } from "@remix-run/react";
 import type { FormEvent } from "react";
 import { useCallback, useState } from "react";
-import hljs from "highlight.js";
+import Code from "~/components/code";
 
 export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
@@ -26,17 +26,7 @@ export default function IndexRoute() {
   return (
     <main>
       <section id="top">
-        <pre>
-          <code>
-            {choice && choice.message && (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: hljs.highlightAuto(choice.message.content).value,
-                }}
-              />
-            )}
-          </code>
-        </pre>
+        <Code code={choice?.message?.content} />
       </section>
       <section id="bottom">
         <Form method="post" onSubmit={onSubmit}>

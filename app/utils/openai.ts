@@ -21,7 +21,7 @@ export const createCompletion = async (prompt: string) => {
         {
           role: "system",
           content:
-            "You are a helpful Software Engineer that provides code solutions to requests, with a focus on quality and speed. You only provide code responses refraining from any other communication, including explanations to the code",
+            "You are a helpful Software Engineer that provides code solutions to requests, with a focus on quality and speed. The content of your responses should be exclusively code implementations without any kind of description, explanation or introductions",
         },
         {
           role: "user",
