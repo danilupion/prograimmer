@@ -1,32 +1,34 @@
 import type { ActionArgs } from "@remix-run/node";
-import { createCompletion } from "~/utils/openai";
+import { createSolution } from "~/utils/openai";
 import { Form, useActionData } from "@remix-run/react";
 import type { FormEvent } from "react";
 import { useCallback, useState } from "react";
 import Code from "~/components/code";
+import Project from "~/components/project";
 
 export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
   const requirements = form.get("input") as string;
 
-  return createCompletion(requirements);
+  return createSolution(requirements);
 };
 
 export default function IndexRoute() {
   const actionData = useActionData<typeof action>();
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback((_e: FormEvent<HTMLFormElement>) => {
     setLoading(true);
   }, []);
 
-  const choice = actionData && actionData.choices[0] && actionData.choices[0];
+  const code = actionData && actionData.files;
   const usage = actionData && actionData.usage;
 
   return (
     <main>
       <section id="top">
-        <Code code={choice?.message?.content} />
+        <Project files={code && code.map((c) => c.file)} />
+        <Code code={code && code.map((c) => c.code).join(`\n`)} />
       </section>
       <section id="bottom">
         <Form method="post" onSubmit={onSubmit}>
@@ -39,9 +41,9 @@ export default function IndexRoute() {
           <textarea name="input" />
 
           <div className="status">
-            {choice && usage
+            {code && usage
               ? [
-                  `finish reason: ${choice.finish_reason}`,
+                  `finish reason: ${actionData.finish_reason}`,
                   `prompt tokens: ${usage.prompt_tokens}`,
                   `completion tokens: ${usage.completion_tokens}`,
                   `total tokens: ${usage.total_tokens}`,

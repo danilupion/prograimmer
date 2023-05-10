@@ -5,7 +5,7 @@ interface CodeProps {
 }
 const Code = ({ code }: CodeProps) => {
   return (
-    <pre>
+    <pre id="code">
       <code
         dangerouslySetInnerHTML={{
           __html: hljs.highlightAuto(code || "").value,
