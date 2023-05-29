@@ -3,8 +3,7 @@ import { createSolution } from "~/utils/openai";
 import { Form, useActionData } from "@remix-run/react";
 import type { FormEvent } from "react";
 import { useCallback, useState } from "react";
-import Code from "~/components/code";
-import Project from "~/components/project";
+import Solution from "~/components/solution";
 
 export const action = async ({ request }: ActionArgs) => {
   const form = await request.formData();
@@ -21,14 +20,13 @@ export default function IndexRoute() {
     setLoading(true);
   }, []);
 
-  const code = actionData && actionData.files;
+  const solution = actionData && actionData.files;
   const usage = actionData && actionData.usage;
 
   return (
     <main>
       <section id="top">
-        <Project files={code && code.map((c) => c.file)} />
-        <Code code={code && code.map((c) => c.code).join(`\n`)} />
+        <Solution solution={solution} />
       </section>
       <section id="bottom">
         <Form method="post" onSubmit={onSubmit}>
@@ -41,7 +39,7 @@ export default function IndexRoute() {
           <textarea name="input" />
 
           <div className="status">
-            {code && usage
+            {usage
               ? [
                   `finish reason: ${actionData.finish_reason}`,
                   `prompt tokens: ${usage.prompt_tokens}`,

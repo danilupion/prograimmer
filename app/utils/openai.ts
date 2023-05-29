@@ -14,10 +14,10 @@ const model = OPENAI_MODEL || "gpt-3.5-turbo";
 const maxTokens = Number(OPENAI_MAX_TOKENS || 100);
 const temperature = Number(OPENAI_TEMPERATURE || 0);
 
-type File = { file: string; language: string; code: string };
+export type SolutionFile = { file: string; language: string; code: string };
 
 export type Solution = {
-  files: File[];
+  files: SolutionFile[];
   usage?: CreateCompletionResponseUsage;
   finish_reason?: string;
 };
@@ -50,7 +50,7 @@ export const createSolution = async (prompt: string): Promise<Solution> => {
                     "file": "<filename with relative path>",
                     "language": "<language>",
                     "code": "<code>"
-                }
+                }y
             ]
           }
 
@@ -64,7 +64,8 @@ export const createSolution = async (prompt: string): Promise<Solution> => {
     console.log(JSON.stringify(completion.data));
 
     const files = completion.data.choices[0].message
-      ? (JSON.parse(completion.data.choices[0].message.content).files as File[])
+      ? (JSON.parse(completion.data.choices[0].message.content)
+          .files as SolutionFile[])
       : [];
 
     return {
