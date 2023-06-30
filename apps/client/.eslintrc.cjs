@@ -1,0 +1,55 @@
+module.exports = {
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    "plugin:eslint-comments/recommended",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "react-app",
+    "react-app/jest",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  parser: '@typescript-eslint/parser',
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': 'warn',
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "eslint-comments/disable-enable-pair": ["error", { "allowWholeFile": true }],
+    "import/no-unresolved": ["error", {}],
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc" },
+        "warnOnUnassignedImports": true
+      }
+    ],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ]
+  },
+}

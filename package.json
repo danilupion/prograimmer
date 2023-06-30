@@ -1,40 +1,45 @@
 {
+  "name": "prograimmer",
   "private": true,
-  "sideEffects": false,
-  "scripts": {
-    "build": "yarn sass && remix build",
-    "dev": "concurrently \"npm run sass:watch\" \"remix dev\"",
-    "start": "remix-serve build",
-    "sass": "sass app/:app/",
-    "sass:watch": "sass --watch app/:app/",
-    "typecheck": "tsc",
-    "lint:fix": "eslint 'app/**/*.{ts,tsx}' --fix",
-    "lint": "eslint 'app/**/*.{ts,tsx}'",
-    "prettify": "prettier --write  \"./**/*.{ts,tsx,json}\""
+  "author": {
+    "name": "Dani Lupión",
+    "email": "danilupion@gmail.com"
   },
-  "dependencies": {
-    "@remix-run/node": "^1.16.1",
-    "@remix-run/react": "^1.16.1",
-    "@remix-run/serve": "^1.16.1",
-    "highlight.js": "^11.8.0",
-    "isbot": "^3.6.8",
-    "openai": "^3.2.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "start:dev:client": "yarn workspace @prograimmer/client start:dev",
+    "start:dev:server": "yarn workspace @prograimmer/server start:dev",
+    "start:dev": "yarn run:parallel 'yarn start:dev:client' 'yarn start:dev:server'",
+    "start:prod:server": "yarn workspace @prograimmer/server start:prod",
+    "test:common": "yarn workspace @prograimmer/common test",
+    "test:client": "yarn workspace @prograimmer/client test",
+    "test:server": "yarn workspace @prograimmer/server test",
+    "test:watch:common": "yarn workspace @prograimmer/common test:watch",
+    "test:watch:client": "yarn workspace @prograimmer/client test:watch",
+    "test:watch:server": "yarn workspace @prograimmer/server test:watch",
+    "build:watch:common": "yarn workspace @prograimmer/common build:watch",
+    "build:check:common": "yarn workspace @prograimmer/common build:check",
+    "build:check:client": "yarn workspace @prograimmer/client build:check",
+    "build:check:server": "yarn workspace @prograimmer/server build:check",
+    "build:common": "yarn workspace @prograimmer/common build",
+    "build:client": "yarn workspace @prograimmer/client build",
+    "build:server": "yarn workspace @prograimmer/server build",
+    "build:apps": "yarn run:parallel 'yarn build:client' 'yarn build:server'",
+    "build": "./scripts/build.sh",
+    "build:check": "yarn build:check:common && yarn build:check:client && yarn build:check:server",
+    "run:parallel": "./scripts/run-parallel.sh",
+    "clean:install": "./scripts/clean-install.sh",
+    "clean:build": "./scripts/clean-build.sh",
+    "clean": "yarn run:parallel 'yarn clean:install' 'yarn clean:build'",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@remix-run/dev": "^1.16.1",
-    "@remix-run/eslint-config": "^1.16.1",
-    "@types/react": "^18.2.7",
-    "@types/react-dom": "^18.2.4",
-    "concurrently": "^8.0.1",
-    "eslint": "^8.41.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "prettier": "^2.8.8",
-    "sass": "^1.62.1",
-    "typescript": "^5.0.4"
-  },
-  "engines": {
-    "node": ">=14"
+    "husky": "^8.0.3"
   }
 }

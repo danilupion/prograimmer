@@ -1,0 +1,18 @@
+@import 'highlight.js/scss/ir-black';
+@import 'normalize.css/normalize.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html,
+#root {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #bcbec3;
+  background-color: #1f1f22;
+  height: 100%;
+}

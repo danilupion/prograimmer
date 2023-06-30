@@ -1,5 +1,5 @@
 # IDEs and editors
-/.idea
+.idea
 .project
 .classpath
 .c9/
@@ -7,6 +7,11 @@
 .settings/
 *.sublime-workspace
 .vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Logs
 logs
@@ -14,16 +19,18 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 #config files
 config.json
 
 # compiled output
 dist/
+dist-ssr/
 tmp/
 build/
 out-tsc/
-.cache
 
 # dependencies
 node_modules/
@@ -38,7 +45,6 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
 .yarn/*
 !.yarn/patches
@@ -52,5 +58,4 @@ Thumbs.db
 #!.yarn/cache
 .pnp.*
 
-*.css
-*.css.map
+*.local

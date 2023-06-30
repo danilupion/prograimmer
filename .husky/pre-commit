@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn build:check
+yarn workspace @prograimmer/client lint-staged
+yarn workspace @prograimmer/server lint-staged
+yarn workspace @prograimmer/common lint-staged
