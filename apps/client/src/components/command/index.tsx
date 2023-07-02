@@ -7,9 +7,10 @@ import styles from './command.module.scss';
 
 type CommandProps = {
   onSolution: (solution: Solution) => void;
+  onError: (error: Error) => void;
 };
 
-const Command = ({ onSolution }: CommandProps) => {
+const Command = ({ onSolution, onError }: CommandProps) => {
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState<string>();
 
@@ -21,13 +22,18 @@ const Command = ({ onSolution }: CommandProps) => {
   );
 
   const sendHandler = useCallback(async () => {
-    if (prompt) {
-      setLoading(true);
-      const response = await generateSolution(prompt);
-      onSolution(response);
+    try {
+      if (prompt) {
+        setLoading(true);
+        const response = await generateSolution(prompt);
+        onSolution(response);
+        setLoading(false);
+      }
+    } catch (e) {
+      onError(e as Error);
       setLoading(false);
     }
-  }, [onSolution, prompt]);
+  }, [onError, onSolution, prompt]);
 
   const sendDisabled = loading || !prompt || !prompt.trim();
 

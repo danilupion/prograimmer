@@ -8,9 +8,15 @@ import Status from './status';
 
 const App = () => {
   const [solution, setSolution] = useState<SolutionType>();
+  const [error, setError] = useState<Error>();
 
   const handleSolutionChange = useCallback((solution: SolutionType) => {
+    setError(undefined);
     setSolution(solution);
+  }, []);
+
+  const handleError = useCallback((error: Error) => {
+    setError(error);
   }, []);
 
   return (
@@ -19,10 +25,11 @@ const App = () => {
         <Solution files={solution && solution.files} />
       </section>
       <section className={styles.bottom}>
-        <Command onSolution={handleSolutionChange} />
+        <Command onSolution={handleSolutionChange} onError={handleError} />
         <Status
           finishReason={solution && solution.finish_reason}
           usage={solution && solution.usage}
+          error={error}
         />
       </section>
     </main>
