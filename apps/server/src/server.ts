@@ -3,6 +3,7 @@ import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 import { isDev } from '@danilupion/turbo-server/helpers/env.js';
+import { connectMongoose } from '@danilupion/turbo-server/helpers/mongoose/connection.js';
 import errorHandler from '@danilupion/turbo-server/middleware/express/errorHandler.js';
 import notFoundHandler from '@danilupion/turbo-server/middleware/express/notFoundHandler.js';
 import config from 'config';
@@ -51,6 +52,7 @@ const startServer = async () => {
 
   const httpServer = createServer(app);
 
+  await connectMongoose();
   httpServer.listen(port);
   console.error(`Listening in port ${port}`, isDev);
 };

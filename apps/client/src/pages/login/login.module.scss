@@ -1,0 +1,15 @@
+.form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .error {
+    color: red;
+    background-color: #ffbcbc;
+    border: red 1px solid;
+    padding: 5px;
+  }
+}

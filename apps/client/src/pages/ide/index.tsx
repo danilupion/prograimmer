@@ -1,12 +1,13 @@
 import { Solution as SolutionType } from '@prograimmer/common/model/api/solutions.js';
 import { useCallback, useState } from 'react';
 
-import styles from './App.module.scss';
-import Command from './command';
-import Solution from './solution';
-import Status from './status';
+import Command from '../../components/command';
+import Solution from '../../components/solution';
+import Status from '../../components/status';
 
-const App = () => {
+import styles from './ide.module.scss';
+
+const Ide = () => {
   const [solution, setSolution] = useState<SolutionType>();
   const [error, setError] = useState<Error>();
 
@@ -36,4 +37,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Ide;
