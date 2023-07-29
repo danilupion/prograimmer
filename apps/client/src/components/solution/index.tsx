@@ -1,5 +1,5 @@
 import { SolutionFile } from '@prograimmer/common/model/api/solutions.js';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Code from './code';
 import Project from './project';
@@ -11,11 +11,14 @@ interface SolutionProps {
 const Solution = ({ files }: SolutionProps) => {
   const [openFile, setOpenFile] = useState<string>();
   const openFileHandler = useCallback(
-    (file: string) => {
+    (file?: string) => {
       setOpenFile(file);
     },
     [setOpenFile],
   );
+  useEffect(() => {
+    openFileHandler();
+  }, [files, openFileHandler]);
 
   const selectedFile = files && files.find((c) => c.file === openFile);
 
