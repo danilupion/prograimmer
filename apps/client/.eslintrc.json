@@ -1,8 +1,8 @@
-module.exports = {
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+{
+  "env": { "browser": true, "es2020": true },
+  "extends": [
+    "eslint:recommended",
+    // "plugin:@typescript-eslint/recommended",
     "plugin:eslint-comments/recommended",
     "plugin:import/typescript",
     "plugin:react/recommended",
@@ -25,11 +25,11 @@ module.exports = {
       "version": "detect"
     }
   },
-  parser: '@typescript-eslint/parser',
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  plugins: ['react-refresh'],
-  rules: {
-    'react-refresh/only-export-components': 'warn',
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { "ecmaVersion": "latest", "sourceType": "module" },
+  "plugins": ["react-refresh"],
+  "rules": {
+    "react-refresh/only-export-components": "warn",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "eslint-comments/disable-enable-pair": ["error", { "allowWholeFile": true }],
@@ -51,5 +51,5 @@ module.exports = {
         "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
       }
     ]
-  },
+  }
 }
