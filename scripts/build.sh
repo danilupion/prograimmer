@@ -7,7 +7,7 @@ yarn build:common;
 yarn build:apps;
 
 SERVER_PUBLIC="./apps/server/dist/public";
-CLIENT_BUILD="../../client/build";
+CLIENT_BUILD="../../client/dist";
 
 [ -e "$SERVER_PUBLIC" ] && rm "$SERVER_PUBLIC"
 
