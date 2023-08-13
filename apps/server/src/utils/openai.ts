@@ -1,6 +1,6 @@
 import { Solution, SolutionFile } from '@prograimmer/common/model/api/solutions.js';
 import config from 'config';
-import { Configuration, OpenAIApi } from 'openai';
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
 
 const OPENAI_KEY = config.get<string>('openai.key');
 
@@ -15,17 +15,15 @@ const temperature = config.get<number>('openai.temperature');
 
 export const askForSolution = async (prompt: string): Promise<Solution> => {
   try {
-    const completion = await openai.createChatCompletion({
-      model,
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a Software Engineer that provides code solutions to requests, with a focus on quality and speed.',
-        },
-        {
-          role: 'user',
-          content: `You will be provided with a text delimited by triple quotes,
+    const messages: ChatCompletionRequestMessage[] = [
+      {
+        role: 'system',
+        content:
+          'You are a Software Engineer that provides code solutions to requests, with a focus on quality and speed.',
+      },
+      {
+        role: 'user',
+        content: `You will be provided with a text delimited by triple quotes,
           It will contain the requirements for the code you need to write.
           Your soulution should satisfy the requirements and only that, nothing else.
           Please refrain from supplying any type of explanation or comment.
@@ -46,8 +44,11 @@ export const askForSolution = async (prompt: string): Promise<Solution> => {
           }
 
           """${prompt}"""`,
-        },
-      ],
+      },
+    ];
+    const completion = await openai.createChatCompletion({
+      model,
+      messages,
       max_tokens: maxTokens,
       temperature,
     });
@@ -59,6 +60,7 @@ export const askForSolution = async (prompt: string): Promise<Solution> => {
       : [];
 
     return {
+      messages,
       files,
       usage: completion.data.usage,
       finish_reason: completion.data.choices[0].finish_reason,
