@@ -1,0 +1,46 @@
+{
+    "files": [
+        {
+            "file": "src/fibonacciChecker.ts",
+            "language": "typescript",
+            "code": "function isFibonacci(n: number): boolean {
+                if (n <= 0) {
+                    return false;
+                }
+                let a = 0;
+                let b = 1;
+                while (b < n) {
+                    let temp = b;
+                    b = a + b;
+                    a = temp;
+                }
+                return n === b;
+            }"
+        },
+        {
+            "file": "src/fibonacciChecker.test.ts",
+            "language": "typescript",
+            "code": "import { isFibonacci } from './fibonacciChecker';
+
+            describe('Fibonacci Checker', () => {
+                it('should return true for numbers in the Fibonacci sequence', () => {
+                    expect(isFibonacci(1)).toBe(true);
+                    expect(isFibonacci(2)).toBe(true);
+                    expect(isFibonacci(3)).toBe(true);
+                    expect(isFibonacci(5)).toBe(true);
+                    expect(isFibonacci(8)).toBe(true);
+                    expect(isFibonacci(13)).toBe(true);
+                });
+
+                it('should return false for numbers not in the Fibonacci sequence', () => {
+                    expect(isFibonacci(4)).toBe(false);
+                    expect(isFibonacci(6)).toBe(false);
+                    expect(isFibonacci(7)).toBe(false);
+                    expect(isFibonacci(9)).toBe(false);
+                    expect(isFibonacci(10)).toBe(false);
+                    expect(isFibonacci(11)).toBe(false);
+                });
+            });"
+        }
+    ]
+}

@@ -15,7 +15,12 @@ export const createSolution = controller<
   RequestWithBody<SolutionReq, RequestWithFields<UserData<UserDocument>>>,
   ResponseWithBody<Solution>
 >(async (req, res) => {
-  const result = await askForSolution(req.body.prompt);
+  const result = await askForSolution(
+    req.body.prompt,
+    req.body.model,
+    req.body.tokens,
+    req.body.temperature,
+  );
 
   const solution = await SolutionModel.create({
     input: req.body.prompt,

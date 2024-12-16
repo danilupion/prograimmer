@@ -1,3 +1,5 @@
+import { writeFile } from 'fs';
+
 import { Solution, SolutionFile } from '@prograimmer/common/model/api/solutions.js';
 import config from 'config';
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from 'openai';
@@ -9,11 +11,12 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const model = config.get<string>('openai.model');
-const maxTokens = config.get<number>('openai.maxTokens');
-const temperature = config.get<number>('openai.temperature');
-
-export const askForSolution = async (prompt: string): Promise<Solution> => {
+export const askForSolution = async (
+  prompt: string,
+  model: string,
+  tokens: number,
+  temperature: number,
+): Promise<Solution> => {
   try {
     const messages: ChatCompletionRequestMessage[] = [
       {
@@ -49,11 +52,19 @@ export const askForSolution = async (prompt: string): Promise<Solution> => {
     const completion = await openai.createChatCompletion({
       model,
       messages,
-      max_tokens: maxTokens,
+      max_tokens: tokens,
       temperature,
     });
 
-    console.log(JSON.stringify(completion.data));
+    if (completion.data.choices[0].message) {
+      const content = completion.data.choices[0].message.content!;
+      console.log(content);
+      writeFile('output2.txt', content, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    }
 
     const files = completion.data.choices[0].message
       ? (JSON.parse(completion.data.choices[0].message.content as string).files as SolutionFile[])
@@ -69,4 +80,8 @@ export const askForSolution = async (prompt: string): Promise<Solution> => {
     console.log(error);
     throw new Error('Error fetching data from OpenAI API');
   }
+};
+
+export const availableModels = async () => {
+  return (await openai.listModels()).data.data.map((model) => model.id);
 };

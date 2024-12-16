@@ -11,4 +11,7 @@ export type Solution = {
 
 export type SolutionReq = {
   prompt: string;
+  model: string;
+  tokens: number;
+  temperature: number;
 };
