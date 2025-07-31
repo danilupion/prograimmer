@@ -1,0 +1,14 @@
+packages:
+  - apps/*
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@swc/core'
+  - bcrypt
+  - esbuild
+  - mongodb-memory-server
+  - sharp
+  - unrs-resolver
+
+injectWorkspacePackages: true

@@ -22,30 +22,44 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-#config files
+# Config files
 config.json
 
-# compiled output
+# Build Outputs
 dist/
 dist-ssr/
-tmp/
 build/
 out-tsc/
+out/
+.next/
+tsconfig.tsbuildinfo
+tsconfig.*.tsbuildinfo
 
-# dependencies
+# Dependencies
 node_modules/
+.pnp
+.pnp.js
 
-# testing
-coverage/
+# Tests
+coverage
+.nyc_output
 
-# misc
-.DS_Store
-Thumbs.db
+# Local env files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+*.local
 
+# Misc
+.DS_Store
+Thumbs.db
+*.pem
+tmp
+.temp
+.tmp
+
+# Yarn
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -53,9 +67,24 @@ Thumbs.db
 !.yarn/sdks
 !.yarn/versions
 
-# Swap the comments on the following lines if you don't wish to use zero-installs
-# Documentation here: https://yarnpkg.com/features/zero-installs
-#!.yarn/cache
-.pnp.*
+# Turbo
+.turbo
 
-*.local
+# Vercel
+.vercel
+
+# Caches
+.eslintcache
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+## Panda
+styled-system
+styled-system-studio

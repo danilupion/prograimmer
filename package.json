@@ -6,33 +6,12 @@
     "email": "danilupion@gmail.com"
   },
   "license": "MIT",
-  "workspaces": {
-    "packages": [
-      "apps/*",
-      "packages/*"
-    ]
-  },
   "scripts": {
-    "start:dev:client": "yarn workspace @prograimmer/client start:dev",
-    "start:dev:server": "yarn workspace @prograimmer/server start:dev",
-    "start:dev": "yarn run:parallel 'yarn start:dev:client' 'yarn start:dev:server'",
-    "start:prod:server": "yarn workspace @prograimmer/server start:prod",
-    "test:common": "yarn workspace @prograimmer/common test",
-    "test:client": "yarn workspace @prograimmer/client test",
-    "test:server": "yarn workspace @prograimmer/server test",
-    "test:watch:common": "yarn workspace @prograimmer/common test:watch",
-    "test:watch:client": "yarn workspace @prograimmer/client test:watch",
-    "test:watch:server": "yarn workspace @prograimmer/server test:watch",
-    "build:watch:common": "yarn workspace @prograimmer/common build:watch",
-    "build:check:common": "yarn workspace @prograimmer/common build:check",
-    "build:check:client": "yarn workspace @prograimmer/client build:check",
-    "build:check:server": "yarn workspace @prograimmer/server build:check",
-    "build:common": "yarn workspace @prograimmer/common build",
-    "build:client": "yarn workspace @prograimmer/client build",
-    "build:server": "yarn workspace @prograimmer/server build",
-    "build:apps": "yarn run:parallel 'yarn build:client' 'yarn build:server'",
-    "build": "./scripts/build.sh",
-    "build:check": "yarn build:check:common && yarn build:check:client && yarn build:check:server",
+    "start:dev": "turbo start:dev",
+    "test": "turbo test",
+    "test:watch": "turbo test:watch",
+    "build:check": "turbo build:check",
+    "build": "turbo build",
     "run:parallel": "./scripts/run-parallel.sh",
     "clean:install": "./scripts/clean-install.sh",
     "clean:build": "./scripts/clean-build.sh",
@@ -40,6 +19,12 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "husky": "^8.0.3"
-  }
+    "husky": "8.0.3",
+    "turbo": "2.5.5"
+  },
+  "engines": {
+    "node": "^24.4.1",
+    "pnpm": "^10.13.1"
+  },
+  "packageManager": "pnpm@10.13.1"
 }

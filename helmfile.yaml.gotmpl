@@ -1,0 +1,36 @@
+environments:
+  {{ .Environment.Name }}:
+    values:
+      - environments/{{ .Environment.Name }}/values.yaml
+
+---
+releases:
+  - name: mongodb-service
+    namespace: prograimmer
+    chart: ./helm-charts/mongodb-service
+    installed: {{ hasKey .Values "mongodb-service" }}
+    values:
+      - {{ toYaml (index .Values "mongodb-service") | nindent 8 }}
+
+  - name: prograimmer-web
+    namespace: prograimmer
+    chart: ./apps/client/helm-chart
+    values:
+    {{ if hasKey .Values "web" }}
+      - {{ toYaml .Values.web | nindent 8 }}
+    {{ end }}
+    {{ if hasKey .Values "common" }}
+      - {{ toYaml .Values.common | nindent 8 }}
+    {{ end }}
+
+
+  - name: prograimmer-server
+    namespace: prograimmer
+    chart: ./apps/server/helm-chart
+    values:
+    {{ if hasKey .Values "server" }}
+      - {{ toYaml .Values.server | nindent 8 }}
+    {{ end }}
+    {{ if hasKey .Values "common" }}
+      - {{ toYaml .Values.common | nindent 8 }}
+    {{ end }}
