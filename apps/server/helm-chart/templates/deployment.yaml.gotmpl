@@ -29,7 +29,14 @@ spec:
               protocol: TCP
       volumes:
         - name: config
+          {{- if .Values.existingConfigSecret }}
+          # Config carries credentials (openai key, jwt secret) - mount it from
+          # a Secret managed outside the chart instead of the rendered ConfigMap
+          secret:
+            secretName: {{ .Values.existingConfigSecret }}
+          {{- else }}
           configMap:
             name: {{ include "prograimmer-server.fullname" . }}
+          {{- end }}
 
 
